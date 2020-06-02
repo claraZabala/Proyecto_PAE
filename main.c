@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <posicion.h>
 #include <stdio.h>
+#include <dyn/dyn_app_motor.h>
 
 #include "main.h"
 #include "dyn/dyn_app_common.h"
@@ -71,10 +72,16 @@ int main(void) {
                     printf("\n");
                     break;
                 case Up:
-
+                    printf("Joystick Up ('i')\n");
+                    //movemos el robot hacia delante e imprimimos su velocidad
+                    move_forward();
+                    spd_indicator();
                     break;
                 case Down:
-
+                    printf("Joystick Down ('m')\n");
+                    //movemos el robot marcha atr�s e imprimimos su velocidad
+                    move_backwards();
+                    spd_indicator();
                     break;
                 case Left:
                     //Comprobaremos si detectamos las esquinas de la pared izquierda:
@@ -103,7 +110,11 @@ int main(void) {
                     printf("(4095, 4095): %d (esquina)\n", obstaculo(4095, 4095, datos_habitacion));
                     break;
                 case Center:
-
+                    printf("Joystick Center ('k')\n");
+                    //Paramos el movimiento del robot, su velocidad se pone a cero
+                    stop();
+                    //Comprobamos que as� es
+                    spd_indicator();
                     break;
                 case Quit:
                     printf("Adios!\n");
