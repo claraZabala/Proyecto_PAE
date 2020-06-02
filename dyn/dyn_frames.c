@@ -8,6 +8,7 @@
  */
 
 #include "dyn_frames.h"
+#include <stdio.h>
 
 #ifndef __MSP432P401R__
 
