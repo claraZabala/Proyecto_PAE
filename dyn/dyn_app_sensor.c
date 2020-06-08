@@ -9,7 +9,7 @@
 #include "dyn_app_sensor.h"
 #include "dyn_instr.h"
 
-uint8_t sen_id = 0; //id del sensor
+uint8_t sen_id = 3; //id del sensor
 
 /**
  * Funci�n que devuelve el bit de lectura del sensor izquierdo

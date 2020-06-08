@@ -4,6 +4,7 @@
 #include <posicion.h>
 #include <stdio.h>
 #include <dyn/dyn_app_motor.h>
+#include <dyn/dyn_app_sensor.h>
 
 #include "main.h"
 #include "dyn/dyn_app_common.h"
@@ -11,6 +12,7 @@
 #include "dyn_test/b_queue.h"
 #include "joystick_emu/joystick.h"
 #include "habitacion_001.h"
+#include "controller.h"
 
 uint8_t estado = Ninguno, estado_anterior = Ninguno, finalizar = 0;
 uint32_t indice;
@@ -49,6 +51,8 @@ int main(void) {
     printf("\nDimensiones habitacion %d ancho x %d largo mm2\n", ANCHO, LARGO);
     printf("En memoria: %I64u B = %I64u MiB\n", sizeof(datos_habitacion), sizeof(datos_habitacion) >> 20);
 
+
+
     printf("Pulsar 'q' para terminar, cualquier tecla para seguir\n");
     fflush(stdout);//	return 0;
 
@@ -56,6 +60,9 @@ int main(void) {
         if (simulator_finished) {
             break;
         }
+
+        autonomous_movement();
+
         Get_estado(&estado, &estado_anterior);
         if (estado != estado_anterior) {
             Set_estado_anterior(estado);
@@ -65,6 +72,9 @@ int main(void) {
                     printf("Boton Sw1 ('a') apretado\n");
                     dyn_led_control(1, 1); //Probaremos de encender el led del motor 2
                     printf("\n");
+                    printf("center %d\n", read_center_ir());
+                    printf("left %d\n", read_left_ir());
+                    printf("right %d\n", read_right_ir());
                     break;
                 case Sw2:
                     printf("Boton Sw2 ('s') apretado\n");
