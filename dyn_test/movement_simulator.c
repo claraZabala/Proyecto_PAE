@@ -1,7 +1,7 @@
 /*
  * movement_simulator.c
  *
- *  Created on: 16 d’abr. 2020
+ *  Created on: 16 dï¿½abr. 2020
  *      Author: droma
  */
 
@@ -81,8 +81,8 @@ void read_speed() {
     _speed_dyn_2_speed_int(&robot_pos_str.iv_l, MOTOR_L_MEM_ROW);
     _speed_dyn_2_speed_int(&robot_pos_str.iv_r, MOTOR_R_MEM_ROW);
 
-//    robot_pos_str.iv_l = 1023;
-//    robot_pos_str.iv_r = 1023;
+    robot_pos_str.iv_l = 700;
+    robot_pos_str.iv_r = 700;
 }
 
 /** Update the position and orientation of the robot using two wheel differential drive kinematics
@@ -160,6 +160,7 @@ void init_movement_simulator(const uint32_t *world) {
     simulator_finished = false;
 
     t_last_upd = clock();
+    update_sensor_data();
 
 #if DEBUG_LEVEL > 2
     fichero = fopen(OUTPUT_FILE, "w+"); //creacion del fichero de salida, en escritura

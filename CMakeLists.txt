@@ -14,6 +14,8 @@ add_executable(p4_pc_joystick2_habitacion
         dyn/dyn_app_common.h
         dyn/dyn_app_sensor.c
         dyn/dyn_app_sensor.h
+        dyn/dyn_app_motor.c
+        dyn/dyn_app_motor.h
         dyn/dyn_frames.c
         dyn/dyn_frames.h
         dyn/dyn_instr.c
@@ -33,4 +35,4 @@ add_executable(p4_pc_joystick2_habitacion
         main.c
         main.h
         posicion.c
-        posicion.h dyn/dyn_app_motor.c dyn/dyn_app_motor.h)
+        posicion.h)

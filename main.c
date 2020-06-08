@@ -74,7 +74,7 @@ int main(void) {
                 case Up:
                     printf("Joystick Up ('i')\n");
                     //movemos el robot hacia delante e imprimimos su velocidad
-                    move_forward();
+
                     spd_indicator();
                     break;
                 case Down:
