@@ -93,4 +93,7 @@ void pivot_left();
  */
 void pivot_right();
 
+void pivot_90_right();
+void pivot_90_left();
+
 #endif //JOYSTICK_DYN_APP_MOTOR_H

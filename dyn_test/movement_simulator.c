@@ -11,6 +11,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <inttypes.h>
 
 #include "main.h"
 #include "movement_simulator.h"
@@ -135,6 +136,10 @@ void calculate_new_position() {
 
 }
 
+float get_theta(){
+    return robot_pos_str.theta;
+}
+
 /** Update the sensor data taking into account the new position
  *
  */
@@ -195,8 +200,8 @@ void update_movement_simulator_values() {
  */
 void check_colision() {
     if (obstaculo(robot_pos_str.x, robot_pos_str.y, robot_pos_str.world)) {
-        printf("***** COLLISION DETECTED AT (%u, %u) simulator step %I64u\n", robot_pos_str.x, robot_pos_str.y,
-               robot_pos_str.sim_step);
+        printf("***** COLLISION DETECTED AT (%u, %u) simulator step ", robot_pos_str.x, robot_pos_str.y);
+        printf("%" PRIu64 "\n", robot_pos_str.sim_step);
     }
 }
 

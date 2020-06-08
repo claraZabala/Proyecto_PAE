@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include "dyn_app_motor.h"
 #include "dyn_instr.h"
+#include "movement_simulator.h"
+#include "math.h"
 
 
 /*
@@ -169,4 +171,18 @@ void pivot_left(){
  */
 void pivot_right(){
     set_speed(0x300, 0);
+}
+
+void pivot_90_right(){
+    float theta = get_theta();
+    while (fabs(theta-get_theta())!=M_PI_2){
+        pivot_right();
+    }
+}
+
+void pivot_90_left(){
+    float theta = get_theta();
+    while (get_theta() < theta + M_PI_2){
+        pivot_left();
+    }
 }

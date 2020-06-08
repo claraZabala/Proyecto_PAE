@@ -38,6 +38,8 @@ typedef struct _robot_pos {
     const uint32_t *world;
 } _robot_pos_t;
 
+float get_theta();
+
 void init_movement_simulator(const uint32_t *world);
 
 void update_movement_simulator_values();

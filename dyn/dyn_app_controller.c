@@ -9,12 +9,6 @@
 #define SAFETY_INTERVAL_MIN 2
 #define SAFETY_INTERVAL_MAX 10
 
-void autonomous_movement(){
-    update_ir_values();
-
-
-}
-
 int get_min(){
     if (center_ir < left_ir){
         if(center_ir < right_ir){
@@ -33,7 +27,7 @@ int get_min(){
 
 
 int is_bot_near_wall(){
-    return (is_near_wall())
+    return (is_near_wall(left_ir) | is_near_wall(right_ir));
 }
 
 int is_near_wall(uint8_t ir_value){
@@ -77,4 +71,18 @@ void update_ir_values(){
     interval_status |= center_ir > SAFETY_INTERVAL_MAX ? 0 : 2; // bit 1 a 1 si esta entre 0 y 10
     interval_status |= right_ir > SAFETY_INTERVAL_MAX ? 0 : 1; // bit 0 a 1 si esta entre 0 y 10
      */
+}
+
+void autonomous_movement(){
+    update_ir_values();
+    int min = get_min();
+    if (min == 1 && is_right_safe()){
+        pivot_right();
+    } else if (min == 0 && is_center_safe()){
+        move_forward();
+    } else if (min == -1 && is_left_safe()){
+        pivot_left();
+    }
+
+
 }
