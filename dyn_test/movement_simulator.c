@@ -81,8 +81,8 @@ void read_speed() {
     _speed_dyn_2_speed_int(&robot_pos_str.iv_l, MOTOR_L_MEM_ROW);
     _speed_dyn_2_speed_int(&robot_pos_str.iv_r, MOTOR_R_MEM_ROW);
 
-    robot_pos_str.iv_l = 700;
-    robot_pos_str.iv_r = 700;
+    //robot_pos_str.iv_l = 700;
+    //robot_pos_str.iv_r = 700;
 }
 
 /** Update the position and orientation of the robot using two wheel differential drive kinematics
@@ -228,6 +228,6 @@ void check_simulation_end() {
 void end_simulator() {
     simulator_finished = true;
     fclose(fichero);
-    pthread_exit(NULL);
+    //pthread_exit(NULL);
 }
 

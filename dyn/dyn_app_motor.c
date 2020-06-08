@@ -13,14 +13,24 @@
 uint8_t lft_id = 1; //id del motor izquierdo
 uint8_t rgt_id = 2; //id del motor derecho
 
+float speed_num_format(uint16_t spd) {
+    int16_t v = spd & 0x300;
+    if (spd & 0x400) {
+        v *= -1;
+    }
+    float ratio = (v/1023.0) * 100;
+    return ratio;
+}
+
 /**
  * Función que imprime por pantalla la velocidad de las dos ruedas del motor
  */
 void spd_indicator(){
-    uint16_t lft_spd = get_left_speed();
-    uint16_t rgt_spd = get_right_speed();
-
-    printf("Current Speed:\nL: 0x%02X / R: 0x%02X\n", lft_spd, rgt_spd);
+    uint16_t ls = get_left_speed();
+    uint16_t rs = get_right_speed();
+    float lft_spd = speed_num_format(ls);
+    float rgt_spd = speed_num_format(rs);
+    printf("Current Speed:\nL: %.2f%% / R: %.2f%%\n", lft_spd, rgt_spd);
 }
 
 /**
@@ -102,14 +112,14 @@ void straight_move(uint16_t spd){
  * Avanzar hacia adelante a una velocidad fija.
  */
 void move_forward(){
-    straight_move(0x500);
+    straight_move(0x300);
 }
 
 /**
  * Retroceder a una velocidad fija.
  */
 void move_backwards(){
-    straight_move(0x300);
+    straight_move(0x500);
 }
 
 /**
@@ -123,40 +133,40 @@ void stop(){
  * Giro a la izquierda a la vez que se avanza hacia adelante.
  */
 void turn_left(){
-    set_speed(0x450, 0x500);
+    set_speed(0x250, 0x300);
 }
 
 /**
  * Giro a la derecha a la vez que se avanza hacia adelante.
  */
 void turn_right(){
-    set_speed(0x500, 0x450);
+    set_speed(0x300, 0x250);
 }
 
 /**
  * Vueltas a la izquierda (velocidades opuestas).
  */
 void spin_left(){
-    set_speed(0x300, 0x500);
+    set_speed(0x500, 0x300);
 }
 
 /**
  * Vueltas a la derecha (velocidades opuestas).
  */
 void spin_right(){
-    set_speed(0x500, 0x300);
+    set_speed(0x300, 0x500);
 }
 
 /**
  * Pivotar sobre la rueda izquierda.
  */
 void pivot_left(){
-    set_speed(0, 0x500);
+    set_speed(0, 0x300);
 }
 
 /**
  * Pivotar sobre la rueda derecha.
  */
 void pivot_right(){
-    set_speed(0x500, 0);
+    set_speed(0x300, 0);
 }

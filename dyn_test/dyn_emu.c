@@ -209,7 +209,7 @@ void *dyn_emu(void *vargp) {
 
     init_movement_simulator(world); //World must have been initialized previously from main() by calling init_world()
 
-    while (true) {
+    while(!simulator_finished) {
 
         update_movement_simulator_values();
 
