@@ -12,4 +12,16 @@ void autonomous_movement();
 
 void update_ir_values();
 
+int is_bot_near_wall();
+
+int is_near_wall(uint8_t ir_value);
+
+int is_safe(uint8_t ir_value);
+
+int is_left_safe();
+
+int is_center_safe();
+
+int is_right_safe();
+
 #endif //P4_PC_JOYSTICK2_HABITACION_DYN_APP_CONTROLLER_H

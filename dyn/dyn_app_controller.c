@@ -31,6 +31,11 @@ int get_min(){
     }
 }
 
+
+int is_bot_near_wall(){
+    return (is_near_wall())
+}
+
 int is_near_wall(uint8_t ir_value){
     return (ir_value <= SAFETY_INTERVAL_MAX);
 }
