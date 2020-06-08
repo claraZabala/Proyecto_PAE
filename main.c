@@ -12,7 +12,7 @@
 #include "dyn_test/b_queue.h"
 #include "joystick_emu/joystick.h"
 #include "habitacion_001.h"
-#include "controller.h"
+#include "dyn_app_controller.h"
 
 uint8_t estado = Ninguno, estado_anterior = Ninguno, finalizar = 0;
 uint32_t indice;
