@@ -2,6 +2,7 @@
 // Created by  on 08/06/2020.
 //
 
+#include <stdlib.h>
 #include "dyn_app_controller.h"
 #include "dyn_app_motor.h"
 #include "dyn_app_sensor.h"
@@ -27,15 +28,15 @@ int get_min(){
 
 
 int is_bot_near_wall(){
-    return (is_near_wall(left_ir) | is_near_wall(right_ir));
+    return (is_near_wall(read_left_ir()) | is_near_wall(read_right_ir()));
 }
 
 int is_near_wall(uint8_t ir_value){
-    return (ir_value <= SAFETY_INTERVAL_MAX);
+    return (ir_value <= (uint8_t) SAFETY_INTERVAL_MAX);
 }
 
 int is_safe(uint8_t ir_value){
-    return (SAFETY_INTERVAL_MIN < ir_value);
+    return ((uint8_t) SAFETY_INTERVAL_MIN < ir_value);
 }
 
 int is_left_safe(){
@@ -75,14 +76,55 @@ void update_ir_values(){
 
 void autonomous_movement(){
     update_ir_values();
-    int min = get_min();
-    if (min == 1 && is_right_safe()){
-        pivot_right();
-    } else if (min == 0 && is_center_safe()){
+    if (!is_bot_near_wall()) {
+        if (right_ir < left_ir) {
+            while(read_center_ir()>right_ir){
+                pivot_right();
+            }
+            while (!is_near_wall(read_center_ir()) && !is_bot_near_wall()){
+                move_forward();
+            }
+            uint8_t center = read_center_ir();
+            while (read_right_ir()>center){
+                pivot_left();
+            }
+            move_forward();
+        } else {
+            while(read_center_ir()>left_ir){
+                pivot_left();
+            }
+            while (!is_near_wall(read_center_ir()) && !is_bot_near_wall()){
+                move_forward();
+            }
+            uint8_t center = read_center_ir();
+            while (read_left_ir()>center){
+                pivot_right();
+            }
+            move_forward();
+        }
+    }
+    else {
+        if (is_near_wall(read_center_ir())){
+            stop();
+        }
+        while (!is_near_wall(read_center_ir())){
+            move_forward();
+        }
+        while (!is_safe(read_center_ir())) {
+            pivot_right();
+        }
         move_forward();
+    }
+    /*if ((min==1 && is_near_wall(right_ir)) || (min==-1 && is_near_wall(left_ir))){
+        move_forward();
+    }
+    if (min == 0 && is_center_safe()){
+        move_forward();
+    } else if (min == 1 && is_right_safe()){
+        pivot_right();
     } else if (min == -1 && is_left_safe()){
         pivot_left();
-    }
+    }*/
 
 
 }

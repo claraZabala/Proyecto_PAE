@@ -163,14 +163,14 @@ void spin_right(){
  * Pivotar sobre la rueda izquierda.
  */
 void pivot_left(){
-    set_speed(0, 0x300);
+    set_speed(0, 0x50);
 }
 
 /**
  * Pivotar sobre la rueda derecha.
  */
 void pivot_right(){
-    set_speed(0x300, 0);
+    set_speed(0x50, 0);
 }
 
 void pivot_90_right(){
