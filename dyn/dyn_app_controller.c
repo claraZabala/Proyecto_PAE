@@ -28,11 +28,15 @@ int get_min(){
 
 
 int is_bot_near_wall(){
-    return (is_near_wall(read_left_ir()) | is_near_wall(read_right_ir()));
+    return (is_near_wall(left_ir) | is_near_wall(right_ir)) | is_near_wall(center_ir);
 }
 
 int is_near_wall(uint8_t ir_value){
     return (ir_value <= (uint8_t) SAFETY_INTERVAL_MAX);
+}
+
+int is_bot_safe() {
+    return is_left_safe() && is_center_safe() && is_right_safe();
 }
 
 int is_safe(uint8_t ir_value){
@@ -74,9 +78,14 @@ void update_ir_values(){
      */
 }
 
+int get_max_side() {
+    return (left_ir < right_ir);
+}
+
 void autonomous_movement(){
     update_ir_values();
-    if (!is_bot_near_wall()) {
+    int min = get_min();
+    /*if (!is_bot_near_wall()) {
         if (right_ir < left_ir) {
             while(read_center_ir()>right_ir){
                 pivot_right();
@@ -114,17 +123,43 @@ void autonomous_movement(){
             pivot_right();
         }
         move_forward();
-    }
-    /*if ((min==1 && is_near_wall(right_ir)) || (min==-1 && is_near_wall(left_ir))){
-        move_forward();
-    }
-    if (min == 0 && is_center_safe()){
-        move_forward();
-    } else if (min == 1 && is_right_safe()){
-        pivot_right();
-    } else if (min == -1 && is_left_safe()){
-        pivot_left();
     }*/
-
-
+    if (!is_bot_near_wall()){
+        if (min == 0){
+            move_forward();
+        } else if (min == 1){
+            turn_right();
+        } else if (min == -1) {
+            turn_left();
+        }
+    }
+    else if (is_bot_safe()){
+        if (!min){
+            if (get_max_side()){
+                turn_right();
+            } else {
+                turn_left();
+            }
+        } else {
+            move_forward();
+        }
+    }
+    else {
+        if (!is_center_safe()){
+            if (get_max_side()){
+                turn_right();
+            } else {
+                turn_left();
+            }
+        }
+        else if (is_left_safe()){
+            turn_left();
+        }
+        else if (is_right_safe()){
+            turn_right();
+        }
+        else {
+            move_forward();
+        }
+    }
 }

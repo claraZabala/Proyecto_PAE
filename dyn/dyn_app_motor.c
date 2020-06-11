@@ -114,7 +114,7 @@ void straight_move(uint16_t spd){
  * Avanzar hacia adelante a una velocidad fija.
  */
 void move_forward(){
-    straight_move(0x300);
+    straight_move(0x100);
 }
 
 /**
@@ -135,14 +135,14 @@ void stop(){
  * Giro a la izquierda a la vez que se avanza hacia adelante.
  */
 void turn_left(){
-    set_speed(0x250, 0x300);
+    set_speed(0x50, 0x100);
 }
 
 /**
  * Giro a la derecha a la vez que se avanza hacia adelante.
  */
 void turn_right(){
-    set_speed(0x300, 0x250);
+    set_speed(0x100, 0x50);
 }
 
 /**
