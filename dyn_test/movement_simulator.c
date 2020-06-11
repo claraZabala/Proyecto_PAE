@@ -81,9 +81,6 @@ void _speed_dyn_2_speed_int(int16_t *v, uint8_t motor_id) {
 void read_speed() {
     _speed_dyn_2_speed_int(&robot_pos_str.iv_l, MOTOR_L_MEM_ROW);
     _speed_dyn_2_speed_int(&robot_pos_str.iv_r, MOTOR_R_MEM_ROW);
-
-    //robot_pos_str.iv_l = 700;
-    //robot_pos_str.iv_r = 700;
 }
 
 /** Update the position and orientation of the robot using two wheel differential drive kinematics
@@ -92,6 +89,9 @@ void read_speed() {
 void calculate_new_position() {
     // http://www.cs.columbia.edu/~allen/F15/NOTES/icckinematics.pdf
     read_speed();
+    read_speed();
+    read_speed();
+
 
     robot_pos_str.v_l = CNTS_2_MM * robot_pos_str.iv_l;
     robot_pos_str.v_r = CNTS_2_MM * robot_pos_str.iv_r;

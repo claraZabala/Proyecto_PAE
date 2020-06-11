@@ -8,7 +8,13 @@
 #include "movement_simulator.h"
 #include "math.h"
 
-
+#define FAST 0x200
+#define MEDIUM 0x100
+#define SLOW 0x050
+#define BACK_FAST 0x500
+#define BACK_SLOW 0x450
+#define SNAIL 0x015
+#define BACK_SNAIL 0x415
 /*
  *
  */
@@ -96,10 +102,12 @@ void set_speed(uint16_t lft_spd, uint16_t rgt_spd){
  * @param rgt_spd_l valor de menor peso de la velocidad de la rueda derecha
  */
 void set_speed_8(uint8_t lft_spd_h, uint8_t lft_spd_l, uint8_t rgt_spd_h, uint8_t rgt_spd_l){
-    dyn_write_byte(lft_id, 0x20, lft_spd_l);
-    dyn_write_byte(lft_id, 0x21, lft_spd_h);
+
     dyn_write_byte(rgt_id, 0x20, rgt_spd_l);
     dyn_write_byte(rgt_id, 0x21, rgt_spd_h);
+    dyn_write_byte(lft_id, 0x20, lft_spd_l);
+    dyn_write_byte(lft_id, 0x21, lft_spd_h);
+
 }
 
 /**
@@ -114,14 +122,21 @@ void straight_move(uint16_t spd){
  * Avanzar hacia adelante a una velocidad fija.
  */
 void move_forward(){
-    straight_move(0x100);
+    straight_move(MEDIUM);
+}
+
+/**
+ * Avanzar hacia adelante a una velocidad fija.
+ */
+void move_fast_forward(){
+    straight_move(FAST);
 }
 
 /**
  * Retroceder a una velocidad fija.
  */
 void move_backwards(){
-    straight_move(0x500);
+    straight_move(BACK_SLOW);
 }
 
 /**
@@ -135,42 +150,42 @@ void stop(){
  * Giro a la izquierda a la vez que se avanza hacia adelante.
  */
 void turn_left(){
-    set_speed(0x50, 0x100);
+    set_speed(SLOW, MEDIUM);
 }
 
 /**
  * Giro a la derecha a la vez que se avanza hacia adelante.
  */
 void turn_right(){
-    set_speed(0x100, 0x50);
+    set_speed(MEDIUM, SLOW);
 }
 
 /**
  * Vueltas a la izquierda (velocidades opuestas).
  */
 void spin_left(){
-    set_speed(0x500, 0x300);
+    set_speed(BACK_SNAIL, SNAIL);
 }
 
 /**
  * Vueltas a la derecha (velocidades opuestas).
  */
 void spin_right(){
-    set_speed(0x300, 0x500);
+    set_speed(SNAIL, BACK_SNAIL);
 }
 
 /**
  * Pivotar sobre la rueda izquierda.
  */
 void pivot_left(){
-    set_speed(0, 0x50);
+    set_speed(0, SLOW);
 }
 
 /**
  * Pivotar sobre la rueda derecha.
  */
 void pivot_right(){
-    set_speed(0x50, 0);
+    set_speed(SLOW, 0);
 }
 
 void pivot_90_right(){

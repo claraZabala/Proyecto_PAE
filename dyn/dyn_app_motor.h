@@ -53,6 +53,9 @@ void straight_move(uint16_t spd);
  */
 void move_forward();
 
+
+void move_fast_forward();
+
 /**
  * Retroceder a una velocidad fija.
  */
