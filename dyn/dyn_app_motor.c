@@ -109,18 +109,36 @@ void set_speed(uint16_t lft_spd, uint16_t rgt_spd){
  */
 void set_speed_8_l(uint8_t lft_spd_h, uint8_t lft_spd_l, uint8_t rgt_spd_h, uint8_t rgt_spd_l){
 
-    dyn_write_byte(lft_id, 0x20, lft_spd_l);
+    uint8_t val_l[2];
+    val_l[0] = lft_spd_l;
+    val_l[1] = lft_spd_h;
+    uint8_t val_r[2];
+    val_r[0] = rgt_spd_l;
+    val_r[1] = rgt_spd_h;
+    printf("envio velocitats %x, %x, %x, %x", lft_spd_l, lft_spd_h, rgt_spd_l, rgt_spd_h);
+    dyn_write(lft_id,0x20,val_l,2);
+    dyn_write(rgt_id,0x20,val_r,2);
+    /*dyn_write_byte(lft_id, 0x20, lft_spd_l);
     dyn_write_byte(lft_id, 0x21, lft_spd_h);
     dyn_write_byte(rgt_id, 0x20, rgt_spd_l);
-    dyn_write_byte(rgt_id, 0x21, rgt_spd_h);
+    dyn_write_byte(rgt_id, 0x21, rgt_spd_h);*/
 }
 
 void set_speed_8_r(uint8_t lft_spd_h, uint8_t lft_spd_l, uint8_t rgt_spd_h, uint8_t rgt_spd_l){
 
-    dyn_write_byte(rgt_id, 0x20, rgt_spd_l);
+    uint8_t val_l[2];
+    val_l[0] = lft_spd_l;
+    val_l[1] = lft_spd_h;
+    uint8_t val_r[2];
+    val_r[0] = rgt_spd_l;
+    val_r[1] = rgt_spd_h;
+    printf("envio velocitats %x, %x, %x, %x", lft_spd_l, lft_spd_h, rgt_spd_l, rgt_spd_h);
+    dyn_write(rgt_id,0x20,val_r,2);
+    dyn_write(lft_id,0x20,val_l,2);
+    /*dyn_write_byte(rgt_id, 0x20, rgt_spd_l);
     dyn_write_byte(rgt_id, 0x21, rgt_spd_h);
     dyn_write_byte(lft_id, 0x20, lft_spd_l);
-    dyn_write_byte(lft_id, 0x21, lft_spd_h);
+    dyn_write_byte(lft_id, 0x21, lft_spd_h);*/
 }
 
 /**

@@ -9,6 +9,7 @@
 
 #include "dyn/dyn_instr.h"
 #include "dyn/dyn_frames.h"
+#include "stdio.h"
 
 /**
  * Single byte write instruction
@@ -67,7 +68,14 @@ int dyn_read_byte(uint8_t module_id, DYN_REG_t reg_addr, uint8_t *reg_read_val) 
  * @return Error code to be treated at higher levels.
  */
 int dyn_write(uint8_t module_id, DYN_REG_t reg_addr, uint8_t *val, uint8_t len) {
-    //TODO: If required, implement multiposition write
-    return 255;
+    uint8_t parameters[len+1];
+    struct RxReturn reply;
+    parameters[0] = reg_addr;
+    for (int i = 1; i < len+1; i++){
+        printf("velocitat %x", val[i-1]);
+        parameters[i] = val[i-1];
+    }
+    reply = RxTxPacket(module_id, len+1, DYN_INSTR__WRITE, parameters);
+    return (reply.tx_err << 1) | reply.time_out;
 }
 

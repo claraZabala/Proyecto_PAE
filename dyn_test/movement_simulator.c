@@ -89,8 +89,8 @@ void read_speed() {
 void calculate_new_position() {
     // http://www.cs.columbia.edu/~allen/F15/NOTES/icckinematics.pdf
     read_speed();
-    read_speed();
-    read_speed();
+    //read_speed();
+    //read_speed();
 
 
     robot_pos_str.v_l = CNTS_2_MM * robot_pos_str.iv_l;
