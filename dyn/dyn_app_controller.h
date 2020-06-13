@@ -10,11 +10,15 @@ uint8_t left_ir, center_ir, right_ir, target_ir;
 
 int target_set, lesgo;
 
+int sentido, pared;
+
 void init_controller();
 
 void autonomous_movement();
 
 void autonomous_movement_v2();
+
+void autonomous_movement_v3();
 
 void update_ir_values();
 

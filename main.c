@@ -51,7 +51,9 @@ int main(void) {
     printf("\nDimensiones habitacion %d ancho x %d largo mm2\n", ANCHO, LARGO);
     printf("En memoria: %I64u B = %I64u MiB\n", sizeof(datos_habitacion), sizeof(datos_habitacion) >> 20);
 
-
+    while(!simulator_finished){
+        autonomous_movement_v3();
+    }
 
     printf("Pulsar 'q' para terminar, cualquier tecla para seguir\n");
     fflush(stdout);//	return 0;
@@ -61,7 +63,7 @@ int main(void) {
             break;
         }
 
-        autonomous_movement_v2();
+        //autonomous_movement_v2();
 
         Get_estado(&estado, &estado_anterior);
         if (estado != estado_anterior) {

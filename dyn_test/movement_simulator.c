@@ -19,7 +19,7 @@
 #include "dyn_instr.h"
 #include "dyn_emu.h"
 
-#define OUTPUT_FILE "movement.log"
+#define OUTPUT_FILE "cmake-build-debug/movement.log"
 FILE *fichero;
 
 static clock_t t_last_upd;
@@ -134,10 +134,6 @@ void calculate_new_position() {
     fflush(fichero);
 #endif
 
-}
-
-float get_theta(){
-    return robot_pos_str.theta;
 }
 
 /** Update the sensor data taking into account the new position

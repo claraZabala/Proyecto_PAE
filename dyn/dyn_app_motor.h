@@ -40,7 +40,8 @@ void set_speed(uint16_t lft_spd, uint16_t rgt_spd);
  * @param rgt_spd_h valor de mayor peso de la velocidad de la rueda derecha
  * @param rgt_spd_l valor de menor peso de la velocidad de la rueda derecha
  */
-void set_speed_8(uint8_t lft_spd_h, uint8_t lft_spd_l, uint8_t rgt_spd_h, uint8_t rgt_spd_l);
+void set_speed_8_l(uint8_t lft_spd_h, uint8_t lft_spd_l, uint8_t rgt_spd_h, uint8_t rgt_spd_l);
+void set_speed_8_r(uint8_t lft_spd_h, uint8_t lft_spd_l, uint8_t rgt_spd_h, uint8_t rgt_spd_l);
 
 /**
  * Movimiento rectilíneo. Establece la misma velocidad a las dos ruedas.

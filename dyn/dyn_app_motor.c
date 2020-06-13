@@ -90,7 +90,13 @@ void set_speed(uint16_t lft_spd, uint16_t rgt_spd){
     uint8_t rgt_spd_l = (uint8_t) (rgt_spd & 0xff);
     uint8_t rgt_spd_h = (uint8_t) ((rgt_spd >> 8) & 0xff);
 
-    set_speed_8(lft_spd_h, lft_spd_l, rgt_spd_h, rgt_spd_l);
+    if (lft_spd>=rgt_spd){
+        set_speed_8_l(lft_spd_h, lft_spd_l, rgt_spd_h, rgt_spd_l);
+    }
+    else {
+        set_speed_8_r(lft_spd_h, lft_spd_l, rgt_spd_h, rgt_spd_l);
+    }
+
 }
 
 /**
@@ -101,13 +107,20 @@ void set_speed(uint16_t lft_spd, uint16_t rgt_spd){
  * @param rgt_spd_h valor de mayor peso de la velocidad de la rueda derecha
  * @param rgt_spd_l valor de menor peso de la velocidad de la rueda derecha
  */
-void set_speed_8(uint8_t lft_spd_h, uint8_t lft_spd_l, uint8_t rgt_spd_h, uint8_t rgt_spd_l){
+void set_speed_8_l(uint8_t lft_spd_h, uint8_t lft_spd_l, uint8_t rgt_spd_h, uint8_t rgt_spd_l){
+
+    dyn_write_byte(lft_id, 0x20, lft_spd_l);
+    dyn_write_byte(lft_id, 0x21, lft_spd_h);
+    dyn_write_byte(rgt_id, 0x20, rgt_spd_l);
+    dyn_write_byte(rgt_id, 0x21, rgt_spd_h);
+}
+
+void set_speed_8_r(uint8_t lft_spd_h, uint8_t lft_spd_l, uint8_t rgt_spd_h, uint8_t rgt_spd_l){
 
     dyn_write_byte(rgt_id, 0x20, rgt_spd_l);
     dyn_write_byte(rgt_id, 0x21, rgt_spd_h);
     dyn_write_byte(lft_id, 0x20, lft_spd_l);
     dyn_write_byte(lft_id, 0x21, lft_spd_h);
-
 }
 
 /**
@@ -150,14 +163,14 @@ void stop(){
  * Giro a la izquierda a la vez que se avanza hacia adelante.
  */
 void turn_left(){
-    set_speed(SLOW, MEDIUM);
+    set_speed(0x80, MEDIUM);
 }
 
 /**
  * Giro a la derecha a la vez que se avanza hacia adelante.
  */
 void turn_right(){
-    set_speed(MEDIUM, SLOW);
+    set_speed(MEDIUM, 0x80);
 }
 
 /**
@@ -186,18 +199,4 @@ void pivot_left(){
  */
 void pivot_right(){
     set_speed(SLOW, 0);
-}
-
-void pivot_90_right(){
-    float theta = get_theta();
-    while (fabs(theta-get_theta())!=M_PI_2){
-        pivot_right();
-    }
-}
-
-void pivot_90_left(){
-    float theta = get_theta();
-    while (get_theta() < theta + M_PI_2){
-        pivot_left();
-    }
 }

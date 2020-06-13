@@ -59,7 +59,9 @@ void update_ir_values(){
     left_ir = read_left_ir();
     center_ir = read_center_ir();
     right_ir = read_right_ir();
-
+    if (left_ir<=SAFETY_INTERVAL_MIN | center_ir<=SAFETY_INTERVAL_MIN | right_ir<=SAFETY_INTERVAL_MIN){
+        stop();
+    }
 }
 
 int get_max_side() {
@@ -130,6 +132,8 @@ int is_target_ahead(){
 void init_controller(){
     target_set = 0;
     lesgo = 0;
+    pared = 0;
+    sentido = 0;
 }
 
 void autonomous_movement_v2(){
@@ -219,4 +223,96 @@ void autonomous_movement_v2(){
 
     }
 
+}
+
+void autonomous_movement_v3() {
+    update_ir_values();
+    int min = get_min();
+    if (pared == 0){
+        if (!is_bot_near_wall()){
+            if (sentido == 0){
+                if (min == 1){
+                    turn_right();
+                    sentido = -1;
+                } else if (min == -1){
+                    turn_left();
+                    sentido = 1;
+                } else {
+                    move_forward();
+                }
+            }
+            else {
+                if (sentido == 1){
+                    if ((center_ir==(uint8_t)255 && right_ir==(uint8_t)255 && left_ir==(uint8_t)255) | min == 0){
+                        move_forward();
+                    }
+                    else {
+                        turn_left();
+                    }
+                }
+                else {
+                    if ((center_ir==(uint8_t)255 && right_ir==(uint8_t)255 && left_ir==(uint8_t)255) | min == 0){
+                        move_forward();
+                    }
+                    else {
+                        turn_right();
+                    }
+                }
+            }
+        } else {
+            pared = 1;
+            if (!is_near_wall(center_ir)) {
+                move_forward();
+            }
+            else {
+                if (sentido == 1) {
+                    pivot_right();
+                } else if (sentido == -1) {
+                    pivot_left();
+                }
+            }
+        }
+    }
+    else {
+        if (!is_bot_near_wall()){
+            pared = 0;
+            if (min == 1){
+                turn_right();
+            } else if (min == -1) {
+                turn_left();
+            }
+        }
+        else {
+            if (is_bot_safe()) {
+                if (!is_near_wall(center_ir)) {
+                    move_forward();
+                }
+                else {
+                    if (sentido == 1) {
+                        pivot_right();
+                    } else if (sentido == -1) {
+                        pivot_left();
+                    }
+                }
+            }
+            else {
+                //PELIGRO
+                if (is_safe(read_left_ir()) && !is_safe(read_right_ir())){
+                    if (is_near_wall(read_center_ir())){
+                        pivot_left();
+                    }
+                    else {
+                        turn_left();
+                    }
+                } else {
+                    if (is_near_wall(read_center_ir())){
+                        pivot_right();
+                    }
+                    else {
+                        turn_right();
+                    }
+                }
+            }
+        }
+    }
 }

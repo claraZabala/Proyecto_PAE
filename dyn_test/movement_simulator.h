@@ -13,7 +13,7 @@
 #include <time.h>
 
 #define SIM_STEP_MS_TIME 10
-#define MAX_SIM_STEPS 5000
+#define MAX_SIM_STEPS 10000
 
 #define INITIAL_POS_X 50
 #define INITIAL_POS_Y 250
@@ -37,8 +37,6 @@ typedef struct _robot_pos {
     uint64_t sim_step;
     const uint32_t *world;
 } _robot_pos_t;
-
-float get_theta();
 
 void init_movement_simulator(const uint32_t *world);
 
