@@ -22,6 +22,11 @@
 uint8_t lft_id = 1; //id del motor izquierdo
 uint8_t rgt_id = 2; //id del motor derecho
 
+/**
+ *
+ * @param spd velocitat en format hexadecimal
+ * @return nombre flotant que és un percentatge de la velocitat tal i com la escriuen al fitxer movement.log
+ */
 float speed_num_format(uint16_t spd) {
     int16_t v = spd & 0x300;
     if (spd & 0x400) {
@@ -116,7 +121,7 @@ void set_speed_8_l(uint8_t lft_spd_h, uint8_t lft_spd_l, uint8_t rgt_spd_h, uint
     uint8_t val_r[2];
     val_r[0] = rgt_spd_l;
     val_r[1] = rgt_spd_h;
-    printf("envio velocitats %x, %x, %x, %x \n", lft_spd_l, lft_spd_h, rgt_spd_l, rgt_spd_h);
+    //printf("envio velocitats %x, %x, %x, %x \n", lft_spd_l, lft_spd_h, rgt_spd_l, rgt_spd_h);
     dyn_write(lft_id,0x20,val_l,2);
     dyn_write(rgt_id,0x20,val_r,2);
     /*dyn_write_byte(lft_id, 0x20, lft_spd_l);
@@ -133,7 +138,7 @@ void set_speed_8_r(uint8_t lft_spd_h, uint8_t lft_spd_l, uint8_t rgt_spd_h, uint
     uint8_t val_r[2];
     val_r[0] = rgt_spd_l;
     val_r[1] = rgt_spd_h;
-    printf("envio velocitats %x, %x, %x, %x", lft_spd_l, lft_spd_h, rgt_spd_l, rgt_spd_h);
+    //printf("envio velocitats %x, %x, %x, %x \n", lft_spd_l, lft_spd_h, rgt_spd_l, rgt_spd_h);
     dyn_write(rgt_id,0x20,val_r,2);
     dyn_write(lft_id,0x20,val_l,2);
     /*dyn_write_byte(rgt_id, 0x20, rgt_spd_l);
@@ -182,14 +187,14 @@ void stop(){
  * Giro a la izquierda a la vez que se avanza hacia adelante.
  */
 void turn_left(){
-    set_speed(SLOW, MS);
+    set_speed(0x80, 0x100);
 }
 
 /**
  * Giro a la derecha a la vez que se avanza hacia adelante.
  */
 void turn_right(){
-    set_speed(MS, SLOW);
+    set_speed(0x100, 0x80);
 }
 
 /**

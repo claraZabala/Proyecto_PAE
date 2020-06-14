@@ -52,7 +52,7 @@ int main(void) {
     printf("En memoria: %I64u B = %I64u MiB\n", sizeof(datos_habitacion), sizeof(datos_habitacion) >> 20);
 
     while(!simulator_finished){
-        autonomous_movement_v4();
+        autonomous_movement();
         //move_forward();
     }
 

@@ -16,11 +16,11 @@ void init_controller();
 
 void autonomous_movement();
 
+void autonomous_movement_v1();
+
 void autonomous_movement_v2();
 
 void autonomous_movement_v3();
-
-void autonomous_movement_v4();
 
 void update_ir_values();
 
