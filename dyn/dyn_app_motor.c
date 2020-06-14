@@ -9,7 +9,8 @@
 #include "math.h"
 
 #define FAST 0x200
-#define MEDIUM 0x100
+#define MEDIUM 0x150
+#define MS 0x070
 #define SLOW 0x050
 #define BACK_FAST 0x500
 #define BACK_SLOW 0x450
@@ -115,7 +116,7 @@ void set_speed_8_l(uint8_t lft_spd_h, uint8_t lft_spd_l, uint8_t rgt_spd_h, uint
     uint8_t val_r[2];
     val_r[0] = rgt_spd_l;
     val_r[1] = rgt_spd_h;
-    printf("envio velocitats %x, %x, %x, %x", lft_spd_l, lft_spd_h, rgt_spd_l, rgt_spd_h);
+    printf("envio velocitats %x, %x, %x, %x \n", lft_spd_l, lft_spd_h, rgt_spd_l, rgt_spd_h);
     dyn_write(lft_id,0x20,val_l,2);
     dyn_write(rgt_id,0x20,val_r,2);
     /*dyn_write_byte(lft_id, 0x20, lft_spd_l);
@@ -181,14 +182,14 @@ void stop(){
  * Giro a la izquierda a la vez que se avanza hacia adelante.
  */
 void turn_left(){
-    set_speed(0x80, MEDIUM);
+    set_speed(SLOW, MS);
 }
 
 /**
  * Giro a la derecha a la vez que se avanza hacia adelante.
  */
 void turn_right(){
-    set_speed(MEDIUM, 0x80);
+    set_speed(MS, SLOW);
 }
 
 /**

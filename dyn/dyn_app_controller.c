@@ -11,8 +11,9 @@
 #define SAFETY_INTERVAL_MAX 10
 #define EPSILON 15
 
+int paret = 0;
 /*Funció per detectar quina és la paret més propera.
- * RETRONA:
+ * RETORNA:
  * 0 si es tracta de la paret detectada pel sensor central
  * 1 si es tracta de la paret detectada pel sensor dret
  * -1 si es tracta de la paret detectada pel sensor esquerra
@@ -65,9 +66,9 @@ void update_ir_values(){
     left_ir = read_left_ir();
     center_ir = read_center_ir();
     right_ir = read_right_ir();
-    if (left_ir<=SAFETY_INTERVAL_MIN | center_ir<=SAFETY_INTERVAL_MIN | right_ir<=SAFETY_INTERVAL_MIN){
+    /*if (left_ir<=SAFETY_INTERVAL_MIN | center_ir<=SAFETY_INTERVAL_MIN | right_ir<=SAFETY_INTERVAL_MIN){
         stop();
-    }
+    }*/
 }
 
 int get_max_side() {
@@ -138,9 +139,10 @@ int is_target_ahead(){
 void init_controller(){
     target_set = 0;
     lesgo = 0;
-    pared = 0;
+    //pared = 0;
     //sentido = 0;
 }
+
 
 void autonomous_movement_v2(){
     update_ir_values();
@@ -332,7 +334,7 @@ void autonomous_movement_v4() {
     // min=0 -> CENTRE; min=1 -> DRETA; min=-1 -> ESQUERRA
     //inicialment la paret val 0 fins que detecti que algun des sensors està en la distància màxima de la paret
     //ESTAT INICIAL! només entrem aquí una vegada, quan comença el moviment i hem de trobar la paret més propera
-    if (pared == 0) {
+    if (paret == 0) {
         //cridem is_bot_near_wall per veure si algun sensor es troba en la distància màxima
         //si cap es troba a aquesta distància ens apropem a la paret que indiqui min
         if (!is_bot_near_wall()) {
@@ -347,8 +349,8 @@ void autonomous_movement_v4() {
             //quan alguna de les parets es troba a la distància necessària per a poder recórrer-la,
             //girarem a la dreta per a moure'ns sempre en sentit horari
         else {
-            pared = 1;
-            pivot_right();
+            paret = 1;
+            turn_right();
         }
     }
     //Cas en que ja estem a prop d'una paret i la volem resseguir en sentit horari

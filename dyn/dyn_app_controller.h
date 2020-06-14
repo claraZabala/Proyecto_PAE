@@ -11,7 +11,6 @@ uint8_t left_ir, center_ir, right_ir, target_ir;
 int target_set, lesgo;
 
 //int sentido;
-int pared = 0;
 
 void init_controller();
 
