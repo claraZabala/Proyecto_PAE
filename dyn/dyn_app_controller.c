@@ -153,9 +153,18 @@ void autonomous_movement() {
                 //cas més comú: es troba massa a prop de la paret frontal o esquerra (i la distància a la de la dreta
                 // és segura), llavors girem a la dreta
                 if (is_right_safe()) { pivot_right();}
-                    //aquest cas no hauria de passar mai ja que el moviment del robot és sempre en sentit horari el controlem
-                    // igualment per si un cas. Si la distància a la paret de la dreta és massa curta girem a l'esquerra.
-                else{ pivot_left(); }
+                    //aquest cas no hauria de passar mai ja que el moviment del robot és sempre en sentit horari
+                    // el controlem igualment per si un cas.
+                else{
+                    //Si està en un carrer sense sortida es mourà cap enrere
+                    if (!is_left_safe() && !is_center_safe()){
+                        move_backwards();
+                    }
+                    //Si la distància a la paret de la dreta és massa curta girem a l'esquerra.
+                    else{
+                        pivot_left();
+                    }
+                 }
             }
         }
     }
