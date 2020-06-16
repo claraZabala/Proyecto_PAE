@@ -57,7 +57,6 @@ byte TxPacket(byte bID, byte bParameterLength, byte bInstruction,
     TxBuffer[3] = bParameterLength + 2; //Length(Parameter,Instruction,Checksum)
     TxBuffer[4] = bInstruction;    //Instrucció que enviem al Mòdul
 
-    //TODO: La instrucció no ha de poder modificar les primeres 5 posicions de memoria
     if (Parametros[0] < 6) {
         printf("Error: la instrucció no pot modificar les cinc primeres");
         return -1;

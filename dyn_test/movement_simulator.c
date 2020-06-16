@@ -10,7 +10,6 @@
 #include <stdint.h>
 #include <math.h>
 #include <stdio.h>
-#include <pthread.h>
 #include <inttypes.h>
 
 #include "main.h"
@@ -148,7 +147,6 @@ void update_sensor_data() {
  *
  */
 void init_movement_simulator(const uint32_t *world) {
-    //TODO: If required, change to appropriate initial conditions
     robot_pos_str.x = INITIAL_POS_X;
     robot_pos_str.y = INITIAL_POS_Y;
     robot_pos_str.x_p = (float) robot_pos_str.x;

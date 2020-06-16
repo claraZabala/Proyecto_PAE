@@ -9,10 +9,10 @@
 
 #define SAFETY_INTERVAL_MIN 2
 #define SAFETY_INTERVAL_MAX 10
-#define EPSILON 15
 
 
 int paret = 0;
+
 /**
  * Funció per detectar quina és la paret més propera.
  * @return 0 si es tracta de la paret detectada pel sensor central,
@@ -64,9 +64,11 @@ int is_bot_safe() {
 }
 
 /**
- *
- * @param ir_value
- * @return
+ * Funció que retorna si la distància detectada pel valor que li passem com a paràmetre és superior a la mínima
+ * permesa per acostar-se a la paret
+ * @param ir_value Valor del sensor a comprobar
+ * @return 0 si aquest valor està per sobre de la distància mínima7
+ *         1 altrament
  */
 int is_safe(uint8_t ir_value){
     return ((uint8_t) SAFETY_INTERVAL_MIN < ir_value);
