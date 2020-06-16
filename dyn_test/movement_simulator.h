@@ -13,7 +13,7 @@
 #include <time.h>
 
 #define SIM_STEP_MS_TIME 10
-#define MAX_SIM_STEPS 55000
+#define MAX_SIM_STEPS 20000
 
 #define INITIAL_POS_X 50
 #define INITIAL_POS_Y 250
@@ -44,7 +44,7 @@ void update_movement_simulator_values();
 
 void end_simulator();
 
-void check_colision();
+void check_collision();
 
 void check_simulation_end();
 

@@ -182,7 +182,7 @@ void update_movement_simulator_values() {
         calculate_new_position();
         check_out_of_bounds();
         update_sensor_data();
-        check_colision();
+        check_collision();
 #if DEBUG_LEVEL > 2
         check_simulation_end();
 #endif
@@ -192,7 +192,7 @@ void update_movement_simulator_values() {
 /** Verify if a collision happens at the new position
  *
  */
-void check_colision() {
+void check_collision() {
     if (obstaculo(robot_pos_str.x, robot_pos_str.y, robot_pos_str.world)) {
         printf("***** COLLISION DETECTED AT (%u, %u) simulator step ", robot_pos_str.x, robot_pos_str.y);
         printf("%" PRIu64 "\n", robot_pos_str.sim_step);

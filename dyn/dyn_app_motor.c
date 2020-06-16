@@ -6,9 +6,11 @@
 #include "dyn_app_motor.h"
 #include "dyn_instr.h"
 
-#define FAST 0x300
-#define MEDIUM 0x200
+#define FAST 0x200
+#define MEDIUM 0x150
 #define SLOW 0x050
+
+#define MS 0x70
 
 #define BACK_SLOW 0x450
 
