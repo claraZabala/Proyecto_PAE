@@ -187,14 +187,14 @@ void stop(){
  * Giro a la izquierda a la vez que se avanza hacia adelante.
  */
 void turn_left(){
-    set_speed(0x80, 0x100);
+    set_speed(SLOW, MS);
 }
 
 /**
  * Giro a la derecha a la vez que se avanza hacia adelante.
  */
 void turn_right(){
-    set_speed(0x100, 0x80);
+    set_speed(MS, SLOW);
 }
 
 /**
