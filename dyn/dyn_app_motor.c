@@ -5,15 +5,13 @@
 #include <stdio.h>
 #include "dyn_app_motor.h"
 #include "dyn_instr.h"
-#include "movement_simulator.h"
-#include "math.h"
 
-#define FAST 0x200
-#define MEDIUM 0x150
-#define MS 0x070
+#define FAST 0x300
+#define MEDIUM 0x200
 #define SLOW 0x050
-#define BACK_FAST 0x500
+
 #define BACK_SLOW 0x450
+
 #define SNAIL 0x015
 #define BACK_SNAIL 0x415
 /*
@@ -187,14 +185,14 @@ void stop(){
  * Giro a la izquierda a la vez que se avanza hacia adelante.
  */
 void turn_left(){
-    set_speed(0x80, 0x100);
+    set_speed(SLOW, MS);
 }
 
 /**
  * Giro a la derecha a la vez que se avanza hacia adelante.
  */
 void turn_right(){
-    set_speed(0x100, 0x80);
+    set_speed(MS, SLOW);
 }
 
 /**
