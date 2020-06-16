@@ -53,18 +53,14 @@ int main(void) {
 
     while(!simulator_finished){
         autonomous_movement();
-        //move_forward();
     }
 
     printf("Pulsar 'q' para terminar, cualquier tecla para seguir\n");
     fflush(stdout);//	return 0;
-    //init_controller();
     while (estado != Quit) {
         if (simulator_finished) {
             break;
         }
-
-        //autonomous_movement_v2();
 
         Get_estado(&estado, &estado_anterior);
         if (estado != estado_anterior) {

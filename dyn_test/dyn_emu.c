@@ -177,7 +177,7 @@ static void handler(int signum) {
  * Thread to emulate the Dynamixel communication
  */
 void *dyn_emu(void *vargp) {
-    uint8_t i = 0, rx_chk, rx_recv_chk, tmp, tx_chk;
+    uint8_t i, rx_chk, rx_recv_chk, tmp, tx_chk;
     bool rx_chk_err;
     bool is_rx_state = true;
     // Initialization of the state machine
@@ -202,7 +202,6 @@ void *dyn_emu(void *vargp) {
     for (i = 0; i < N_DEVICES; ++i) {
         *(p + i * DYN_MAX_POS + 3) = i + 1;
     }
-    // TODO: Add other fields of interest of the dynamixel registers
 
     // Add SIGTERM handler to kill the current thread
     signal(SIGTERM, handler);

@@ -3,8 +3,6 @@
  *
  *  Created on: 18 mar. 2020
  *
- * TODO: High-level functions like "distance_wall_front", etc
- * TODO: Generate another file for motors, with functions like "move_forward", etc
  */
 #include "dyn_app_sensor.h"
 #include "dyn_instr.h"
@@ -39,17 +37,6 @@ uint8_t read_right_ir(){
     uint8_t read;
     dyn_read_byte(sen_id, 0x1C, &read);
     return read;
-}
-
-/**
- * Funci�n que fuerza la escritura del valor de los sensores
- * (S�lo es para esta pr�ctica, para comprobar que la lectura
- * de los sensores es correcta, luego esto no se podr� hacer)
- */
-void force_write(uint8_t left, uint8_t center, uint8_t right){
-    dyn_write_byte(sen_id, 0x1A, left);
-    dyn_write_byte(sen_id, 0x1B, center);
-    dyn_write_byte(sen_id, 0x1C, right);
 }
 
 
