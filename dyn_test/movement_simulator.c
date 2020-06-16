@@ -10,7 +10,6 @@
 #include <stdint.h>
 #include <math.h>
 #include <stdio.h>
-#include <pthread.h>
 #include <inttypes.h>
 
 #include "main.h"
